@@ -1,36 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: applicationset-hello-plugin
-  namespace: applicationset-hello-plugin
+  name: appset-test-plugin
+  namespace: appset-test-plugin
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: applicationset-hello-plugin
+      app.kubernetes.io/name: appset-test-plugin
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: applicationset-hello-plugin
+        app.kubernetes.io/name: appset-test-plugin
     spec:
       containers:
-        - name: main
-          image: python:latest
-          command: ["python"]
-          args: ["/app/main.py"]
-          ports:
-            - containerPort: 4355
-              name: http
+        - name: appset-test-plugin
+          image: quay.io/christianh814/appset-test-plugin:latest
           volumeMounts:
             - mountPath: /var/run/argo/token
               name: token
               subPath: token
-            - name: hello-plugin-script
-              mountPath: "/app/main.py"
-              subPath: "main.py"
       volumes:
         - name: token
           secret:
-            secretName: applicationset-hello-plugin
-        - name: hello-plugin-script
-          configMap:
-            name: hello-plugin-script
+            secretName: appset-test-plugin
