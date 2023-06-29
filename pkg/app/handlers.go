@@ -49,6 +49,10 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 					Foo:  "bar",
 					Bizz: "buzz",
 				},
+				{
+					Foo:  "bazz",
+					Bizz: "fizz",
+				},
 			},
 		},
 	}
