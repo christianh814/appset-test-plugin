@@ -2,6 +2,8 @@ package app
 
 import (
 	"encoding/json"
+	"fmt"
+	"io"
 	"net/http"
 	"os"
 )
@@ -48,7 +50,8 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 				"applicationSetName":"gobg",
 				"input":{
 					"parameters":{
-						"<key from generator>": "<value from generator>"
+						# "<key from generator>": "<value from generator>"
+						"status": "gitops"
 					}
 				}
 			}
@@ -56,6 +59,13 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 		r.Body.Close()
 		fmt.Println(string(b))
 	*/
+	var result map[string]interface{}
+	b, _ := io.ReadAll(r.Body)
+	r.Body.Close()
+	//fmt.Println(string(b))
+	json.Unmarshal(b, &result)
+	// print out the value of .input.parameters.status
+	fmt.Println(result["input"].(map[string]interface{})["parameters"].(map[string]interface{})["status"])
 
 	// set op equal to a new OutputParams struct with dummy data
 	op := OutputParams{
