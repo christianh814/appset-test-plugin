@@ -23,6 +23,7 @@ type InputParams struct {
 type Param struct {
 	Name      string `json:"name"`
 	Namespace string `json:"namespace"`
+	Label     string `json:"label"`
 }
 
 type Output struct {
@@ -40,6 +41,9 @@ func unsupported(w http.ResponseWriter, r *http.Request) {
 
 // getparams returns a JSON response with the parameters passed in
 func getparams(w http.ResponseWriter, r *http.Request) {
+	// Set some defaults
+	var label string = "devops-is-awesome"
+
 	// Load token information from file
 	tokenfile := "/var/run/argo/token"
 	token, err := os.ReadFile(tokenfile)
@@ -64,7 +68,9 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	} else {
 		// print out the value of .input.parameters.status
-		fmt.Println(result)
+		if result.Input.Parameters.Status == "gitops" {
+			label = "gitops-is-the-way"
+		}
 	}
 
 	// set op equal to a new OutputParams struct with dummy data
@@ -74,10 +80,12 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 				{
 					Name:      "foo",
 					Namespace: "bar",
+					Label:     label,
 				},
 				{
 					Name:      "fuzz",
 					Namespace: "bazz",
+					Label:     label,
 				},
 			},
 		},

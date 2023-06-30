@@ -8,6 +8,9 @@ spec:
     - plugin:
         configMapRef:
           name: appset-test-plugin
+        input:
+          parameters:
+            status: "gitops"
   template:
     metadata:
       name: "gobg-{{name}}"
@@ -25,3 +28,6 @@ spec:
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
+        managedNamespaceMetadata:
+          labels:
+            appset-test-plugin/msg: "{{label}}"

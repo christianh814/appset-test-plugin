@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: gobg
+  namespace: argocd
+spec:
+  generators:
+    - plugin:
+        configMapRef:
+          name: appset-test-plugin
+  template:
+    metadata:
+      name: "gobg-{{name}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/christianh814/gobg-deploy
+        path: deploy/overlays/default
+      destination:
+        name: in-cluster
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+        managedNamespaceMetadata:
+          labels:
+            appset-test-plugin/msg: "{{label}}"
