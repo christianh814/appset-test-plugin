@@ -63,9 +63,12 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 	b, _ := io.ReadAll(r.Body)
 	r.Body.Close()
 	//fmt.Println(string(b))
-	json.Unmarshal(b, &result)
-	// print out the value of .input.parameters.status
-	fmt.Println(result["input"].(map[string]interface{})["parameters"].(map[string]interface{})["status"])
+	if err = json.Unmarshal(b, &result); err != nil {
+		fmt.Println(err)
+	} else {
+		// print out the value of .input.parameters.status
+		fmt.Println(result["input"].(map[string]interface{})["parameters"].(map[string]interface{})["status"])
+	}
 
 	// set op equal to a new OutputParams struct with dummy data
 	op := OutputParams{
