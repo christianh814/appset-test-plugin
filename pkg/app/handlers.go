@@ -8,6 +8,18 @@ import (
 	"os"
 )
 
+type ReqParams struct {
+	Status string `json:"status"`
+}
+type ReqInput struct {
+	Parameters ReqParams `json:"parameters"`
+}
+
+type InputParams struct {
+	ApplicationSetName string   `json:"applicationSetName"`
+	Input              ReqInput `json:"input"`
+}
+
 type Param struct {
 	Name      string `json:"name"`
 	Namespace string `json:"namespace"`
@@ -45,29 +57,14 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 
 	// Read the parameters from the request in a unstructured way
 	// {"applicationSetName":"myappset","input":{}}
-	/*
-			{
-				"applicationSetName":"gobg",
-				"input":{
-					"parameters":{
-						# "<key from generator>": "<value from generator>"
-						"status": "gitops"
-					}
-				}
-			}
-		b, _ := ioutil.ReadAll(r.Body)
-		r.Body.Close()
-		fmt.Println(string(b))
-	*/
-	var result map[string]interface{}
+	var result InputParams
 	b, _ := io.ReadAll(r.Body)
 	r.Body.Close()
-	//fmt.Println(string(b))
 	if err = json.Unmarshal(b, &result); err != nil {
 		fmt.Println(err)
 	} else {
 		// print out the value of .input.parameters.status
-		fmt.Println(result["input"].(map[string]interface{})["parameters"].(map[string]interface{})["status"])
+		fmt.Println(result.Input.Parameters)
 	}
 
 	// set op equal to a new OutputParams struct with dummy data
