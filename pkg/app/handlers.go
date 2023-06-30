@@ -64,7 +64,7 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	} else {
 		// print out the value of .input.parameters.status
-		fmt.Println(result.Input.Parameters)
+		fmt.Println(result.Input)
 	}
 
 	// set op equal to a new OutputParams struct with dummy data
