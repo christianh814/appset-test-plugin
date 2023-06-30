@@ -2,8 +2,6 @@ package app
 
 import (
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"net/http"
 	"os"
 )
@@ -44,9 +42,20 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Read the parameters from the request in a unstructured way
-	b, _ := ioutil.ReadAll(r.Body)
-	r.Body.Close()
-	fmt.Println(string(b))
+	// {"applicationSetName":"myappset","input":{}}
+	/*
+			{
+				"applicationSetName":"gobg",
+				"input":{
+					"parameters":{
+						"<key from generator>": "<value from generator>"
+					}
+				}
+			}
+		b, _ := ioutil.ReadAll(r.Body)
+		r.Body.Close()
+		fmt.Println(string(b))
+	*/
 
 	// set op equal to a new OutputParams struct with dummy data
 	op := OutputParams{
