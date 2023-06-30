@@ -10,7 +10,7 @@ spec:
           name: appset-test-plugin
   template:
     metadata:
-      name: "gobg-{{foo}}"
+      name: "gobg-{{name}}"
     spec:
       project: default
       source:
@@ -18,7 +18,7 @@ spec:
         path: deploy/overlays/default
       destination:
         name: in-cluster
-        namespace: "{{bizz}}"
+        namespace: "{{namespace}}"
       syncPolicy:
         automated:
           prune: true

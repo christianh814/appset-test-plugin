@@ -9,8 +9,8 @@ import (
 )
 
 type Param struct {
-	Foo  string `json:"foo"`
-	Bizz string `json:"bizz"`
+	Name      string `json:"name"`
+	Namespace string `json:"namespace"`
 }
 
 type Output struct {
@@ -53,12 +53,12 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 		Output: Output{
 			Parameters: []Param{
 				{
-					Foo:  "bar",
-					Bizz: "buzz",
+					Name:      "foo",
+					Namespace: "bar",
 				},
 				{
-					Foo:  "bazz",
-					Bizz: "fizz",
+					Name:      "fuzz",
+					Namespace: "bazz",
 				},
 			},
 		},
