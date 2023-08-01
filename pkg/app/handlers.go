@@ -75,7 +75,7 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	log.Info(r.Body)
+	log.Info(string(b))
 
 	// set op equal to a new OutputParams struct with dummy data
 	op := OutputParams{
