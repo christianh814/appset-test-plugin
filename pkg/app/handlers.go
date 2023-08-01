@@ -62,7 +62,7 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Read the parameters from the request in a unstructured way
-	// {"applicationSetName":"myappset","input":{}}
+	// {"applicationSetName":"myappset","input":{"parameters":{"status":"gitops"}}}
 	var result InputParams
 	b, _ := io.ReadAll(r.Body)
 	r.Body.Close()
@@ -75,6 +75,7 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	// Log the request
 	log.Info(string(b))
 
 	// set op equal to a new OutputParams struct with dummy data
