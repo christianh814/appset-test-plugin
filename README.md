@@ -5,4 +5,4 @@
 3. Test "barebones" example `kubectl apply -f manifests/1.sample-appset.yaml`
 4. To test parameters, use `kubectl apply -f manifests/2.sample-appset.yaml`
 
-> **NOTE** Run `kubectl apply -f manifests/1.sample-appset.yaml` before testing the second one
+> **NOTE** Run `kubectl delete -f manifests/1.sample-appset.yaml` before testing the second one
