@@ -6,6 +6,8 @@ import (
 	"io"
 	"net/http"
 	"os"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type ReqParams struct {
@@ -72,6 +74,8 @@ func getparams(w http.ResponseWriter, r *http.Request) {
 			label = "gitops-is-the-way"
 		}
 	}
+
+	log.Info(r.Body)
 
 	// set op equal to a new OutputParams struct with dummy data
 	op := OutputParams{
